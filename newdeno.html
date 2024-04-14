@@ -179,7 +179,7 @@ button:hover {
   </tr>
   <tr>
     <td colspan="2"><strong>Total</strong></td>
-    <td id="overallTotal"><strong>0</strong></td>
+    <td id="grandTotal"><strong>0</strong></td>
   </tr>
 </table>
 </form>
@@ -212,9 +212,9 @@ function calculateTotals() {
     document.getElementById("total10").innerText = total10;
     document.getElementById("total1").innerText = total1;
     
-    var overallTotal = total500 + total200 + total100 + total50 + total20 + total10 + total1;
+    var grandTotal = total500 + total200 + total100 + total50 + total20 + total10 + total1;
     
-    document.getElementById("overallTotal").innerText = overallTotal;
+    document.getElementById("grandTotal").innerText = grandTotal;
 }
 
 function validateMobileNumber() {
