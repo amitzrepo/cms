@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fetch and Display Data from Google Sheets</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    th {
+        padding: 8px;
+        border: 1px solid #dddddd;
+        text-align: center;
+        word-wrap: break-word;
+        max-width: 300px; /* Adjust as needed */
+        white-space: nowrap; /* Display all data in a single line */
+    }
+    
+    td {
+        padding: 8px;
+        border: 1px solid #dddddd;
+        text-align: right;
+        word-wrap: break-word;
+        max-width: 300px; /* Adjust as needed */
+        white-space: nowrap; /* Display all data in a single line */
+    }
+    
+    /* Left align the second column */
+    td:nth-child(1) {
+        text-align: center;
+    }
+    
+    td:nth-child(2) {
+        text-align: left;
+    }
+    
+    td:nth-child(3) {
+        text-align: left;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <!-- Headers will be populated dynamically -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be displayed here -->
+    </tbody>
+</table>
+
+<script>
+window.onload = function() {
+    fetchData();
+};
+
+function fetchData() {
+    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS8BfCfrGbinjLxakksJGCoLOuqn6RXzrdFgRybFkmsJu34zK1wUHSpiLGKXgiimp59s0Z1j9u9x1AU/pub?gid=599185833&single=true&output=tsv';
+
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Get the text content
+    })
+    .then(data => {
+        // Parse TSV data and display it
+        displayData(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+function displayData(data) {
+    const table = document.getElementById('dataTable');
+    const lines = data.split('\n');
+
+    // Headers
+    const headers = lines[0].split('\t');
+    const headerRow = table.querySelector('thead tr');
+    // Exclude the last header
+    for (let i = 0; i < headers.length - 1; i++) {
+        const th = document.createElement('th');
+        th.textContent = headers[i];
+        headerRow.appendChild(th);
+    }
+
+    // Data rows
+    const tbody = table.querySelector('tbody');
+    for (let i = 1; i < lines.length; i++) {
+        // Skip the second and third rows
+        if (i === 1 || i === 2) continue;
+        const cells = lines[i].split('\t');
+        if (cells.length === headers.length) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < cells.length - 1; j++) {
+                const td = document.createElement('td');
+                td.textContent = cells[j];
+                row.appendChild(td);
+            }
+            tbody.appendChild(row);
+        }
+    }
+}
+</script>
+
+</body>
+</html>
