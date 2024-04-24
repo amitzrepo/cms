@@ -9,6 +9,23 @@
         font-family: Arial, sans-serif;
         line-height: 1.5;
     }
+     .button-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    button {
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
 
     table {
         width: 100%;
@@ -70,6 +87,10 @@
         <!-- Data will be displayed here -->
     </tbody>
 </table>
+<br>
+<div class="button-container">
+    <button class="redirect-button" onclick="window.location.href='https://docs.google.com/spreadsheets/d/e/2PACX-1vS8BfCfrGbinjLxakksJGCoLOuqn6RXzrdFgRybFkmsJu34zK1wUHSpiLGKXgiimp59s0Z1j9u9x1AU/pubhtml?gid=1076265349&single=true'">Bank Deno</button>
+</div>
 
 <script>
 window.onload = function() {
