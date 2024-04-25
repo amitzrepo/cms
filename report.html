@@ -50,8 +50,7 @@
     
     /* Center align the first column */
     td:nth-child(1) {
-        text-align: left;
-        white-space: normal;
+        text-align: center;
     }
     
     /* Left align the second & third column */
@@ -141,13 +140,21 @@ function displayData(data) {
             const row = document.createElement('tr');
             for (let j = 0; j < cells.length - 1; j++) {
                 const td = document.createElement('td');
-                td.textContent = cells[j];
+                if (j === 0) {
+                    // Split date and time
+                    const dateTime = cells[j].split(' ');
+                    // Display only the date
+                    td.textContent = dateTime[0];
+                } else {
+                    td.textContent = cells[j];
+                }
                 row.appendChild(td);
             }
             tbody.appendChild(row);
         }
     }
 }
+
 </script>
 
 </body>
